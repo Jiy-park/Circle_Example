@@ -29,13 +29,38 @@ int main(int argc,const char**argv)
     for(int i=0;i<argc;i++){
         SPDLOG_INFO("argv[{}]:{}",i,argv[i]);
     }
-    float circleRadius=0.75f;
+    float big_Radius=0.75f;//////큰 반지름
+    float small_Radius=0.5f;//////작은 반지름
     int circleSegmentCount=16;
-    if(argc>=2){
-        circleRadius=std::stof(argv[1]);
+    float startPoint=0.0f;
+    float endPoint=360.0f;
+    float RGB_R=0.0f;///////레드
+    float RGB_G=0.0f;///////그린
+    float RGB_B=0.0f;///////블루
+    //////////////////////////////////////////////큰 반지름 작은 반지금 세그먼트 시작각 끝각 R,G,B
+    if(argc>=2){/////큰 반지름
+        big_Radius=std::stof(argv[1]);
     }
-    if(argc>=3){
-        circleSegmentCount=std::stoi(argv[2]);
+    if (argc >= 3){ /////작은 반지름
+        small_Radius = std::stof(argv[2]);
+    }
+    if(argc>=4){///////세그먼트
+        circleSegmentCount=std::stoi(argv[3]);
+    }
+    if(argc>=5){///////시작각
+        startPoint=std::stof(argv[4]);
+    }
+    if(argc>=6){///////끝각
+        endPoint=std::stof(argv[5]);
+    }
+    if(argc>=7){///////레드
+        RGB_R=std::stof(argv[6]);
+    }
+    if(argc>=8){///////그린
+        RGB_G=std::stof(argv[7]);
+    }
+    if(argc>=9){///////블루
+        RGB_B=std::stof(argv[8]);
     }
 
         // glfw 라이브러리 초기화, 실패하면 에러 출력후 종료
@@ -77,8 +102,8 @@ int main(int argc,const char**argv)
         return -1;
     }
 
-
-    context->CreatCircle(circleRadius,circleSegmentCount);
+///////////////////큰 반지름   작은 반지름  세그먼트  시작각 끝각 R G B 
+    context->CreatCircle(big_Radius,small_Radius,circleSegmentCount,startPoint,endPoint,RGB_R,RGB_G,RGB_B);
 
 
     // ShaderPtr vertShader = Shader::CreateFromFile("./shader/simple.vs", GL_VERTEX_SHADER);

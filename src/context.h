@@ -11,7 +11,8 @@ CLASS_PTR(Context)
 class Context{
 public:
     static ContextUPtr Create();
-    void CreatCircle(float radius,int segment);
+    void CreatCircle(float big_Radius,float small_Radius,int segment,
+                                            float startPoint,float endPoint,float RGB_R,float RGB_G,float RGB_B);
     void Render();
 
 private:

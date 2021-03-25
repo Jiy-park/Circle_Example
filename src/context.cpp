@@ -56,23 +56,28 @@ void Context::Render(){
     glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, 0);   
 }
 
-void Context::CreatCircle(float radius,int segment){
+ 
+
+void Context::CreatCircle(float big_radius,float small_radius,int segment,
+                                            float startPoint,float endPoint,float RGB_R,float RGB_G,float RGB_B ){
+                                                ///////////////////////////////////////원 만들기  
     std::vector<float> vertices;
     std::vector<uint32_t> indices;
 
     const float pi=3.141592f;
     vertices.push_back(0.0f);//x
     vertices.push_back(0.0f);//y
-    vertices.push_back(0.0f);//z///원 중심좌표
+    vertices.push_back(0.0f);//z 사용 x///원 중심좌표 
 
     for(int i=0;i<segment;i++){
-        float angle = (360.0f/segment*i)*pi/180.0f;
-        float x=cosf(angle)*radius;
-        float y=sinf(angle)*radius;
+        float angle; 
+        angle = (360.0f/segment*i)*pi/180.0f;
+        float x=cosf(angle)*big_radius;
+        float y=sinf(angle)*big_radius;
         vertices.push_back(x); 
         vertices.push_back(y); 
         vertices.push_back(0.0f); 
-    }
+    }                                                           
 
     for(int i=0;i<segment;i++){
         indices.push_back(0);
@@ -94,5 +99,5 @@ void Context::CreatCircle(float radius,int segment){
     m_indexCount=(int)indices.size();
     auto loc = glGetUniformLocation(m_program->Get(),"color");
     m_program->Use();
-    glUniform4f(loc,1.0f,1.0f,1.0f,1.0f);
+    glUniform4f(loc,0.7f,0.0f,0.0f,0.0f);
 }
