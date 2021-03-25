@@ -34,9 +34,9 @@ int main(int argc,const char**argv)
     int circleSegmentCount=16;
     float startPoint=0.0f;
     float endPoint=360.0f;
-    float RGB_R=0.0f;///////레드
-    float RGB_G=0.0f;///////그린
-    float RGB_B=0.0f;///////블루
+    float RGB_R=1.0f;///////레드
+    float RGB_G=1.0f;///////그린
+    float RGB_B=1.0f;///////블루
     //////////////////////////////////////////////큰 반지름 작은 반지금 세그먼트 시작각 끝각 R,G,B
     if(argc>=2){/////큰 반지름
         big_Radius=std::stof(argv[1]);
