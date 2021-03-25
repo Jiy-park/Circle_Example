@@ -69,7 +69,7 @@ void Context::CreatCircle(float big_radius,float small_radius,int segment,
     vertices.push_back(0.0f);//y
     vertices.push_back(0.0f);//z 사용 x///원 중심좌표 
 
-    for(int i=0;i<segment;i++){
+    for(int i=0;i<segment;i++){///////바깥 점   1~segment
         float angle; 
         angle = (360.0f/segment*i)*pi/180.0f;
         float x=cosf(angle)*big_radius;
@@ -77,16 +77,37 @@ void Context::CreatCircle(float big_radius,float small_radius,int segment,
         vertices.push_back(x); 
         vertices.push_back(y); 
         vertices.push_back(0.0f); 
-    }                                                           
-
-    for(int i=0;i<segment;i++){
-        indices.push_back(0);
-        indices.push_back(i+1);
-        if(i==segment-1)
+    }
+    for (int i = 0; i < segment; i++){////안 점   segment+1~segment*2
+        float angle;
+        angle = (360.0f / segment * i) * pi / 180.0f;
+        float x = cosf(angle) * small_radius;
+        float y = sinf(angle) * small_radius;
+        vertices.push_back(x);
+        vertices.push_back(y);
+        vertices.push_back(0.0f);
+    }
+    for(int i=1,k=segment+1;i<=segment,k<=segment*2;i++,k++)////선 연결
+    {
+        indices.push_back(i);
+        if(i==segment)
             indices.push_back(1);
         else
-            indices.push_back(i+2);
+            indices.push_back(i+1);
+        indices.push_back(k);
+        //////1번 퍼즐
+        indices.push_back(k);
+        if(k==(segment*2)){
+            indices.push_back(1+segment);
+            indices.push_back(1);
+        }
+        else{
+            indices.push_back(k+1);
+            indices.push_back(i+1);
+        }
+        ///////2번 퍼즐
     }
+
 
     m_vertexLayout = VertexLayout::Create();
     m_vertexBuffer = Buffer::CreateWithData(GL_ARRAY_BUFFER, GL_STATIC_DRAW, vertices.data(), 
@@ -99,5 +120,5 @@ void Context::CreatCircle(float big_radius,float small_radius,int segment,
     m_indexCount=(int)indices.size();
     auto loc = glGetUniformLocation(m_program->Get(),"color");
     m_program->Use();
-    glUniform4f(loc,0.7f,0.0f,0.0f,0.0f);
+    glUniform4f(loc,RGB_R,RGB_G,RGB_B,0.0f);
 }
